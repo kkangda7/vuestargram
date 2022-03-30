@@ -40,17 +40,22 @@
       <textarea class="write-box" @input="$emit('load',$event.target.value)">write!</textarea>
     </div>
   </div>
+  <div v-else-if="step == 3">
+    <MyPage :one="'1'"></MyPage>  
+  </div>
 </template>
 
 <script>
 import Post from './Post.vue';
+import MyPage from './MyPage.vue';
 import FilterBox from './FilterBox.vue';
 import filters from '@/filters'
 
 export default {
   components: {
     Post,
-    FilterBox
+    FilterBox,
+    MyPage
   },
   props: {
     인스타데이터: Array,
