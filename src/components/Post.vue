@@ -14,11 +14,12 @@
     <div 
       class="post-body" 
       :style="{ backgroundImage : `url(${인스타데이터.postImage})`}"
+      @click="$store.commit('increaseLike')"
     >
     </div>
     <div class="post-content">
       <p>
-        {{ 인스타데이터.likes }} Likes
+        {{ $store.state.likes}} Likes
       </p>
       <p>
         <strong>글쓴이아이디</strong>

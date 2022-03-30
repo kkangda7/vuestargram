@@ -22,17 +22,20 @@
       class="logo" 
     />
   </div>
-  <h4>안녕 {{ $store.state.name }}</h4>
+  <!-- <h4>안녕 {{ $store.state.name }}</h4>
+  <h4>{{ $store.state.age }} </h4>
+  <button @click="$store.commit('이름변경')">버튼</button>
+  <button @click="$store.commit('나이먹기', -1)">나이먹기</button>
+  <button @click="$store.dispatch('getData')">더보기버튼</button> -->
   <Container 
     :인스타데이터="인스타데이터"
     :step="step"
     :이미지="이미지"
     @load="작성한글 = $event"
   />
-  <button @click="more">
+  <button v-if="step == 0" @click="more">
     더보기
   </button>
-  {{ gram }}
 
   <div class="footer">
     <ul class="footer-button-plus">
@@ -56,6 +59,7 @@
 import data from './vuestar'
 import Container from './components/Container.vue'
 import axios from 'axios'
+import { mapState } from 'vuex'
 
 export default {
   name: 'App',
@@ -64,12 +68,12 @@ export default {
   },
   data() {
     return {
-      step: 0,
+      step: 3,
       인스타데이터: data,
       더보기: 0,
       이미지: "",
       작성한글: "",
-      gram: ""
+      gram: "",
     }
   },
   methods: {
@@ -101,7 +105,14 @@ export default {
       };
       this.인스타데이터.unshift(내게시물);
       this.step = 0;
-    }
+    },
+  },
+  computed: {
+    name() {
+      return this.$store.state.name
+    },
+    ...mapState(['name','likes','age']),
+    ...mapState({ 내이름 : 'name' })
   },
   mounted(){
     this.emitter.on('filte', (a)=> {
